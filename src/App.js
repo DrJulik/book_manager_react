@@ -1,12 +1,15 @@
 import React from "react";
 import "./App.css";
 import BookListManagerWrapper from "./components/BookListManagerWrapper";
+import { Provider } from "./context/context";
 
 function App() {
 	return (
-		<div className="App">
-			<BookListManagerWrapper />
-		</div>
+		<Provider>
+			<div className="App">
+				<BookListManagerWrapper />
+			</div>
+		</Provider>
 	);
 }
 
