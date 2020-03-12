@@ -31,6 +31,9 @@ class AddBook extends Component {
 			author: "",
 			isbn: ""
 		});
+
+		// redirect to book list after added book
+		this.props.history.push("/");
 	};
 
 	render() {
@@ -51,7 +54,6 @@ class AddBook extends Component {
 										<input
 											value={title}
 											name="title"
-											placeholder="The Stranger"
 											type="text"
 											onChange={this.onChange}
 										/>
@@ -61,7 +63,6 @@ class AddBook extends Component {
 										<input
 											value={author}
 											name="author"
-											placeholder="Albert Camus"
 											type="text"
 											onChange={this.onChange}
 										/>
@@ -71,7 +72,6 @@ class AddBook extends Component {
 										<input
 											value={isbn}
 											name="isbn"
-											placeholder="9780679720201"
 											type="text"
 											onChange={this.onChange}
 										/>
