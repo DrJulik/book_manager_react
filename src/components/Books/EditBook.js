@@ -31,7 +31,24 @@ class EditBook extends Component {
 
 	onSubmit = async (dispatch, e) => {
 		e.preventDefault();
+		const { title, author, isbn } = this.state;
 
+		const updContact = {
+			title,
+			author,
+			isbn
+		};
+
+		const { id } = this.props.match.params;
+
+		const res = await axios.put(
+			`http://localhost:3000/books/${id}`,
+			updContact
+		);
+
+		dispatch({ type: "UPDATE_BOOK", payload: res.data });
+
+		// clear state
 		this.setState({
 			title: "",
 			author: "",

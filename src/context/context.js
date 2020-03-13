@@ -15,6 +15,13 @@ const reducer = (state, action) => {
 				...state,
 				books: [action.payload, ...state.books]
 			};
+		case "UPDATE_BOOK":
+			return {
+				...state,
+				books: state.books.map(book =>
+					book.id === action.payload.id ? (book = action.payload) : book
+				)
+			};
 		default:
 			return state;
 	}
