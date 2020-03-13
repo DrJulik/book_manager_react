@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { v4 as uuidv4 } from "uuid";
+import axios from "axios";
+// import { v4 as uuidv4 } from "uuid";
 import { Consumer } from "../../context/context";
 
 class AddBook extends Component {
@@ -13,18 +14,20 @@ class AddBook extends Component {
 		this.setState({ [e.target.name]: e.target.value });
 	};
 
-	onSubmit = (dispatch, e) => {
+	onSubmit = async (dispatch, e) => {
 		e.preventDefault();
 		const { title, author, isbn } = this.state;
 
 		const newBook = {
-			id: uuidv4(),
+			// id: uuidv4(),
 			title,
 			author,
 			isbn
 		};
 
-		dispatch({ type: "ADD_BOOK", payload: newBook });
+		const res = await axios.post("http://localhost:3000/books", newBook);
+
+		dispatch({ type: "ADD_BOOK", payload: res.data });
 
 		this.setState({
 			title: "",

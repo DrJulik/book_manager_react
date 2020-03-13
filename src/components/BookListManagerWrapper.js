@@ -4,6 +4,7 @@ import Container from "./hoc/Container";
 import Header from "./Header/Header";
 import NotFound from "./pages/NotFound";
 import AddBook from "./Books/AddBook";
+import EditBook from "./Books/EditBook";
 import About from "./pages/About";
 import Books from "./Books/Books";
 
@@ -17,6 +18,7 @@ export class BookListManagerWrapper extends Component {
 						<Switch>
 							<Route exact path="/" component={Books} />
 							<Route exact path="/book/add" component={AddBook} />
+							<Route exact path="/book/edit/:id" component={EditBook} />
 							<Route exact path="/about" component={About} />
 							<Route component={NotFound} />
 						</Switch>

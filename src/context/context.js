@@ -28,10 +28,10 @@ export class Provider extends Component {
 		}
 	};
 
-	componentDidMount() {
-		axios
-			.get("../books.json")
-			.then(res => this.setState({ contacts: res.data }));
+	async componentDidMount() {
+		const res = await axios.get("http://localhost:3000/books");
+
+		this.setState({ books: res.data });
 	}
 
 	render() {

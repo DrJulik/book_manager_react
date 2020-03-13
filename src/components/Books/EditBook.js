@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import { v4 as uuidv4 } from "uuid";
+import axios from "axios";
+import M from "materialize-css";
+// import { v4 as uuidv4 } from "uuid";
 import { Consumer } from "../../context/context";
 
 class EditBook extends Component {
@@ -9,22 +11,26 @@ class EditBook extends Component {
 		isbn: ""
 	};
 
+	async componentDidMount() {
+		const { id } = this.props.match.params;
+		const res = await axios.get(`http://localhost:3000/books/${id}`);
+
+		const book = res.data;
+
+		this.setState({
+			title: book.title,
+			author: book.author,
+			isbn: book.isbn
+		});
+		M.updateTextFields();
+	}
+
 	onChange = e => {
 		this.setState({ [e.target.name]: e.target.value });
 	};
 
-	onSubmit = (dispatch, e) => {
+	onSubmit = async (dispatch, e) => {
 		e.preventDefault();
-		const { title, author, isbn } = this.state;
-
-		const newBook = {
-			id: uuidv4(),
-			title,
-			author,
-			isbn
-		};
-
-		dispatch({ type: "ADD_BOOK", payload: newBook });
 
 		this.setState({
 			title: "",
@@ -44,7 +50,7 @@ class EditBook extends Component {
 					const { dispatch } = value;
 					return (
 						<div>
-							<h2>Add A Book:</h2>
+							<h2>Edit A Book:</h2>
 							<div className="row">
 								<form
 									className="cols s12"
@@ -57,7 +63,9 @@ class EditBook extends Component {
 											type="text"
 											onChange={this.onChange}
 										/>
-										<label htmlFor="title">Title</label>
+										<label htmlFor="title" className="active">
+											Title
+										</label>
 									</div>
 									<div className="input-field col s12">
 										<input
@@ -82,7 +90,7 @@ class EditBook extends Component {
 											className="btn indigo lighten-1 waves-effect waves-light"
 											type="submit"
 										>
-											Submit
+											Update Book
 										</button>
 									</div>
 								</form>

@@ -11,9 +11,12 @@ export class Search extends Component {
 	render() {
 		return (
 			<div className="row">
-				<div className="input-field col s12">
+				<div className="input-field col s3 right">
+					<i className="material-icons prefix">search</i>
 					<input name="search" type="text" onChange={this.searchHandler} />
-					<label htmlFor="search">Search</label>
+					<label htmlFor="search" style={{ pointerEvents: "none" }}>
+						Search
+					</label>
 				</div>
 			</div>
 		);
