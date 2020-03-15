@@ -22,6 +22,16 @@ const reducer = (state, action) => {
 					book.id === action.payload.id ? (book = action.payload) : book
 				)
 			};
+		// case "SEARCH_BOOK":
+		// 	return {
+		// 		...state,
+		// 		books: state.books.filter(
+		// 			book =>
+		// 				book.title.includes(action.payload) ||
+		// 				book.author.includes(action.payload) ||
+		// 				book.isbn.includes(action.payload)
+		// 		)
+		// 	};
 		default:
 			return state;
 	}

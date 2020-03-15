@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import M from "materialize-css";
+import classnames from "classnames";
 // import { v4 as uuidv4 } from "uuid";
 import { Consumer } from "../../context/context";
 
@@ -8,7 +9,8 @@ class EditBook extends Component {
 	state = {
 		title: "",
 		author: "",
-		isbn: ""
+		isbn: "",
+		errors: {}
 	};
 
 	async componentDidMount() {
@@ -32,6 +34,20 @@ class EditBook extends Component {
 	onSubmit = async (dispatch, e) => {
 		e.preventDefault();
 		const { title, author, isbn } = this.state;
+
+		// checking for errors
+		if (title === "") {
+			this.setState({ errors: { title: "Title is required!" } });
+			return;
+		}
+		if (author === "") {
+			this.setState({ errors: { author: "Author is required!" } });
+			return;
+		}
+		if (isbn === "") {
+			this.setState({ errors: { isbn: "Isbn is required!" } });
+			return;
+		}
 
 		const updContact = {
 			title,
@@ -60,7 +76,7 @@ class EditBook extends Component {
 	};
 
 	render() {
-		const { title, author, isbn } = this.state;
+		const { title, author, isbn, errors } = this.state;
 		return (
 			<Consumer>
 				{value => {
@@ -75,32 +91,42 @@ class EditBook extends Component {
 								>
 									<div className="input-field col s12">
 										<input
+											className={classnames("", { invalid: errors.title })}
 											value={title}
 											name="title"
 											type="text"
 											onChange={this.onChange}
 										/>
-										<label htmlFor="title" className="active">
-											Title
-										</label>
+										<label htmlFor="title">Title</label>
+										{errors.title ? (
+											<p style={{ color: "red" }}>{errors.title}</p>
+										) : null}
 									</div>
 									<div className="input-field col s12">
 										<input
+											className={classnames("", { invalid: errors.author })}
 											value={author}
 											name="author"
 											type="text"
 											onChange={this.onChange}
 										/>
 										<label htmlFor="author">Author</label>
+										{errors.author ? (
+											<p style={{ color: "red" }}>{errors.author}</p>
+										) : null}
 									</div>
 									<div className="input-field col s12 ">
 										<input
+											className={classnames("", { invalid: errors.isbn })}
 											value={isbn}
 											name="isbn"
 											type="text"
 											onChange={this.onChange}
 										/>
 										<label htmlFor="isbn">ISBN</label>
+										{errors.isbn ? (
+											<p style={{ color: "red" }}>{errors.isbn}</p>
+										) : null}
 									</div>
 									<div className="input-field col s12">
 										<button
