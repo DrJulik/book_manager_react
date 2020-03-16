@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
 import { Consumer } from "../../context/context";
 
@@ -11,6 +11,10 @@ class Book extends Component {
 		dispatch({ type: "DELETE_BOOK", payload: id });
 	};
 
+	openProfile = id => {
+		this.props.history.push(`/book/${id}`);
+	};
+
 	render() {
 		const { id } = this.props;
 		return (
@@ -18,7 +22,10 @@ class Book extends Component {
 				{value => {
 					const { dispatch } = value;
 					return (
-						<tr>
+						<tr
+							onClick={this.openProfile.bind(this, id)}
+							style={{ cursor: "pointer" }}
+						>
 							<td>{this.props.title}</td>
 							<td>{this.props.author}</td>
 							<td>{this.props.isbn}</td>
@@ -46,4 +53,4 @@ class Book extends Component {
 	}
 }
 
-export default Book;
+export default withRouter(Book);

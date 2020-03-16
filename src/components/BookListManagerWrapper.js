@@ -7,6 +7,7 @@ import AddBook from "./Books/AddBook";
 import EditBook from "./Books/EditBook";
 import About from "./pages/About";
 import Books from "./Books/Books";
+import BookProfile from "./Books/BookProfile/BookProfile";
 
 export class BookListManagerWrapper extends Component {
 	render() {
@@ -19,6 +20,7 @@ export class BookListManagerWrapper extends Component {
 							<Route exact path="/" component={Books} />
 							<Route exact path="/book/add" component={AddBook} />
 							<Route exact path="/book/edit/:id" component={EditBook} />
+							<Route exact path="/book/:id" component={BookProfile} />
 							<Route exact path="/about" component={About} />
 							<Route component={NotFound} />
 						</Switch>

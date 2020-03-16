@@ -25,7 +25,6 @@ class Books extends Component {
 					);
 					return (
 						<div>
-							<h2>Book List:</h2>
 							{/* Testing this way of searching */}
 							<div className="row">
 								<div className="input-field col s3 right">
