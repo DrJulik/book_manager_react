@@ -22,13 +22,19 @@ class Book extends Component {
 				{value => {
 					const { dispatch } = value;
 					return (
-						<tr
-							onClick={this.openProfile.bind(this, id)}
-							style={{ cursor: "pointer" }}
-						>
-							<td>{this.props.title}</td>
-							<td>{this.props.author}</td>
-							<td>{this.props.isbn}</td>
+						<tr style={{ cursor: "pointer" }}>
+							<td onClick={this.openProfile.bind(this, id)}>
+								{this.props.title}
+							</td>
+							<td onClick={this.openProfile.bind(this, id)}>
+								{this.props.author}
+							</td>
+							<td onClick={this.openProfile.bind(this, id)}>
+								{this.props.isbn}
+							</td>
+							<td onClick={this.openProfile.bind(this, id)}>
+								{!this.props.rating ? "None" : this.props.rating + "/10"}
+							</td>
 							<td style={{ textAlign: "center" }}>
 								<Link
 									className="btn-floating btn-small  waves-effect waves-light"

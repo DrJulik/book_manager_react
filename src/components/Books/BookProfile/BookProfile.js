@@ -5,7 +5,10 @@ class BookProfile extends Component {
 	state = {
 		title: "",
 		author: "",
-		isbn: ""
+		isbn: "",
+		rating: "",
+		year: "",
+		pages: ""
 	};
 
 	async componentDidMount() {
@@ -17,12 +20,15 @@ class BookProfile extends Component {
 		this.setState({
 			title: book.title,
 			author: book.author,
-			isbn: book.isbn
+			isbn: book.isbn,
+			rating: book.rating,
+			year: book.year,
+			pages: book.pages
 		});
 	}
 
 	render() {
-		const { title, author, isbn } = this.state;
+		const { title, author, isbn, rating, year, pages } = this.state;
 		return (
 			<div
 				className="container row right-align"
@@ -45,6 +51,27 @@ class BookProfile extends Component {
 					<div className="book_description_group">
 						<h5>ISBN:</h5>
 						<h3>{isbn}</h3>
+					</div>
+					{rating ? (
+						<div className="book_description_group">
+							<h5>User Rating:</h5>
+							<h3>{rating}</h3>
+						</div>
+					) : null}
+
+					<div className="optional_info">
+						{year ? (
+							<div className="book_description_group">
+								<h5>Year:</h5>
+								<h3>{year}</h3>
+							</div>
+						) : null}
+						{pages ? (
+							<div className="book_description_group">
+								<h5>Number of pages:</h5>
+								<h3>{pages}</h3>
+							</div>
+						) : null}
 					</div>
 				</div>
 			</div>

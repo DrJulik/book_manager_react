@@ -1,15 +1,9 @@
 {
   "books": [
     {
-      "title": "a",
-      "author": "aa",
-      "isbn": "1",
-      "id": 1
-    },
-    {
-      "title": "ab",
-      "author": "aaa",
-      "isbn": "12",
+      "title": "The Stranger",
+      "author": "Albert Camus",
+      "isbn": "123456789",
       "id": 2
     },
     {
@@ -17,6 +11,40 @@
       "author": "aaaa",
       "isbn": "123",
       "id": 3
+    },
+    {
+      "title": "Moby Dick",
+      "author": "Albert Camus",
+      "isbn": "0866119671",
+      "rating": "1",
+      "id": 4
+    },
+    {
+      "title": "asdasd",
+      "author": "asdasd",
+      "isbn": "123123",
+      "rating": "",
+      "year": "1923",
+      "pages": "",
+      "id": 5
+    },
+    {
+      "title": "New Book w/ add info",
+      "author": "Me",
+      "isbn": "No",
+      "rating": "2",
+      "year": "1923",
+      "pages": "13",
+      "id": 6
+    },
+    {
+      "title": "Moby Dick",
+      "author": "asdasd",
+      "isbn": "123",
+      "rating": "",
+      "year": "1923",
+      "pages": "",
+      "id": 8
     }
   ]
 }

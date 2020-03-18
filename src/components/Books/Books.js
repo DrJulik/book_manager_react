@@ -5,14 +5,45 @@ import { Consumer } from "../../context/context";
 
 class Books extends Component {
 	state = {
-		search: ""
+		search: "",
+		currentSort: "default"
 	};
 
 	searchHandler = e => {
 		this.setState({ search: e.target.value });
 	};
 
+	onSortChange = e => {
+		e.preventDefault(e);
+		const { currentSort } = this.state;
+		let nextSort;
+
+		if (currentSort === "down") nextSort = "up";
+		else if (currentSort === "up") nextSort = "default";
+		else if (currentSort === "default") nextSort = "down";
+
+		this.setState({
+			currentSort: nextSort
+		});
+	};
+
 	render() {
+		const { currentSort } = this.state;
+		const sortTypes = {
+			up: {
+				class: "expand_less",
+				fn: (a, b) => a.isbn - b.isbn
+			},
+			down: {
+				class: "expand_more",
+				fn: (a, b) => b.isbn - a.isbn
+			},
+			default: {
+				class: "sort",
+				fn: (a, b) => a
+			}
+		};
+
 		return (
 			<Consumer>
 				{value => {
@@ -44,23 +75,32 @@ class Books extends Component {
 									<tr>
 										<th>Title</th>
 										<th>Author</th>
-										<th>ISBN</th>
+										<th>
+											ISBN
+											<a href="/notalink" onClick={this.onSortChange}>
+												<i className="material-icons">{`${sortTypes[currentSort].class}`}</i>
+											</a>
+										</th>
+										<th>Rating</th>
 										<th></th>
 									</tr>
 								</thead>
 
 								<tbody>
-									{filteredBooks.map(book => {
-										return (
-											<Book
-												key={book.id}
-												id={book.id}
-												author={book.author}
-												title={book.title}
-												isbn={book.isbn}
-											/>
-										);
-									})}
+									{[...filteredBooks]
+										.sort(sortTypes[currentSort].fn)
+										.map(book => {
+											return (
+												<Book
+													key={book.id}
+													id={book.id}
+													author={book.author}
+													title={book.title}
+													isbn={book.isbn}
+													rating={book.rating}
+												/>
+											);
+										})}
 								</tbody>
 							</table>
 						</div>
