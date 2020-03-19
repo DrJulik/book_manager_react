@@ -32,11 +32,11 @@ class Books extends Component {
 		const sortTypes = {
 			up: {
 				class: "expand_less",
-				fn: (a, b) => a.isbn - b.isbn
+				fn: (a, b) => a.title.localeCompare(b.title)
 			},
 			down: {
 				class: "expand_more",
-				fn: (a, b) => b.isbn - a.isbn
+				fn: (a, b) => b.title.localeCompare(a.title)
 			},
 			default: {
 				class: "sort",
@@ -50,8 +50,12 @@ class Books extends Component {
 					const { books } = value;
 					let filteredBooks = books.filter(
 						book =>
-							book.title.includes(this.state.search) ||
-							book.author.includes(this.state.search) ||
+							book.title
+								.toLowerCase()
+								.includes(this.state.search.toLowerCase()) ||
+							book.author
+								.toLowerCase()
+								.includes(this.state.search.toLowerCase()) ||
 							book.isbn.includes(this.state.search)
 					);
 					return (
@@ -73,14 +77,25 @@ class Books extends Component {
 							<table className="highlight">
 								<thead>
 									<tr>
-										<th>Title</th>
-										<th>Author</th>
-										<th>
-											ISBN
-											<a href="/notalink" onClick={this.onSortChange}>
-												<i className="material-icons">{`${sortTypes[currentSort].class}`}</i>
+										<th style={{ display: "flex" }}>
+											<span>Title</span>{" "}
+											<a
+												href="/notalink"
+												style={{
+													display: "flex",
+													alignItems: "center",
+													marginLeft: "0.5rem"
+												}}
+												onClick={this.onSortChange}
+											>
+												<i
+													className="material-icons"
+													style={{ color: "black" }}
+												>{`${sortTypes[currentSort].class}`}</i>
 											</a>
 										</th>
+										<th>Author</th>
+										<th>ISBN</th>
 										<th>Rating</th>
 										<th></th>
 									</tr>
