@@ -1,18 +1,6 @@
 {
   "books": [
     {
-      "title": "The Stranger",
-      "author": "Albert Camus",
-      "isbn": "123456789",
-      "id": 2
-    },
-    {
-      "title": "abc",
-      "author": "aaaa",
-      "isbn": "123",
-      "id": 3
-    },
-    {
       "title": "Moby Dick",
       "author": "Albert Camus",
       "isbn": "0866119671",

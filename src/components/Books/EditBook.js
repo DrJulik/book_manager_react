@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+// import axios from "axios";
 import M from "materialize-css";
 import classnames from "classnames";
 // import { v4 as uuidv4 } from "uuid";
@@ -10,30 +10,34 @@ class EditBook extends Component {
 		title: "",
 		author: "",
 		isbn: "",
-		errors: {}
+		errors: {},
 	};
 
 	async componentDidMount() {
 		const { id } = this.props.match.params;
-		const res = await axios.get(`http://localhost:3000/books/${id}`);
+		// const res = await axios.get(`http://localhost:3000/books/${id}`);
 
-		const book = res.data;
+		let book = JSON.parse(localStorage.getItem(id));
+
+		// const book = res.data;
 
 		this.setState({
+			id,
 			title: book.title,
 			author: book.author,
-			isbn: book.isbn
+			isbn: book.isbn,
 		});
 		M.updateTextFields();
 	}
 
-	onChange = e => {
+	onChange = (e) => {
 		this.setState({ [e.target.name]: e.target.value });
 	};
 
 	onSubmit = async (dispatch, e) => {
 		e.preventDefault();
 		const { title, author, isbn } = this.state;
+		const { id } = this.props.match.params;
 
 		// checking for errors
 		if (title === "") {
@@ -49,26 +53,26 @@ class EditBook extends Component {
 			return;
 		}
 
-		const updContact = {
+		const updBook = {
+			id,
 			title,
 			author,
-			isbn
+			isbn,
 		};
 
-		const { id } = this.props.match.params;
+		// const res = await axios.put(
+		// 	`http://localhost:3000/books/${id}`,
+		// 	updBook
+		// );
+		localStorage.setItem(id, JSON.stringify(updBook));
 
-		const res = await axios.put(
-			`http://localhost:3000/books/${id}`,
-			updContact
-		);
-
-		dispatch({ type: "UPDATE_BOOK", payload: res.data });
+		dispatch({ type: "UPDATE_BOOK", payload: updBook });
 
 		// clear state
 		this.setState({
 			title: "",
 			author: "",
-			isbn: ""
+			isbn: "",
 		});
 
 		// redirect to book list after added book
@@ -79,7 +83,7 @@ class EditBook extends Component {
 		const { title, author, isbn, errors } = this.state;
 		return (
 			<Consumer>
-				{value => {
+				{(value) => {
 					const { dispatch } = value;
 					return (
 						<div>

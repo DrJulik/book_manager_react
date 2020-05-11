@@ -6,12 +6,12 @@ import { Consumer } from "../../context/context";
 class Book extends Component {
 	deleteBook = async (id, dispatch, e) => {
 		e.preventDefault();
-		await axios.delete(`http://localhost:3000/books/${id}`);
-
+		// await axios.delete(`http://localhost:3000/books/${id}`);
+		localStorage.removeItem(id);
 		dispatch({ type: "DELETE_BOOK", payload: id });
 	};
 
-	openProfile = id => {
+	openProfile = (id) => {
 		this.props.history.push(`/book/${id}`);
 	};
 
@@ -19,7 +19,7 @@ class Book extends Component {
 		const { id } = this.props;
 		return (
 			<Consumer>
-				{value => {
+				{(value) => {
 					const { dispatch } = value;
 					return (
 						<tr style={{ cursor: "pointer" }}>

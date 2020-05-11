@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import axios from "axios";
+// import axios from "axios";
 import classnames from "classnames";
-// import { v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from "uuid";
 import { Consumer } from "../../context/context";
 
 class AddBook extends Component {
@@ -13,10 +13,10 @@ class AddBook extends Component {
 		year: "",
 		pages: "",
 		errors: {},
-		moreInfo: false
+		moreInfo: false,
 	};
 
-	onChange = e => {
+	onChange = (e) => {
 		this.setState({ [e.target.name]: e.target.value });
 	};
 
@@ -39,18 +39,25 @@ class AddBook extends Component {
 		}
 
 		const newBook = {
-			// id: uuidv4(),
+			// no id neccessary for JSON Server
+			id: uuidv4(),
 			title,
 			author,
 			isbn,
 			rating,
 			year,
-			pages
+			pages,
 		};
 
-		const res = await axios.post("http://localhost:3000/books", newBook);
+		// FOR LOCAL JSON SERVER
+		// const res = await axios.post("http://localhost:3000/books", newBook);
 
-		dispatch({ type: "ADD_BOOK", payload: res.data });
+		// dispatch({ type: "ADD_BOOK", payload: res.data });
+
+		// Local Storage Solution
+		localStorage.setItem(newBook.id, JSON.stringify(newBook));
+
+		dispatch({ type: "ADD_BOOK", payload: newBook });
 
 		this.setState({
 			title: "",
@@ -58,14 +65,14 @@ class AddBook extends Component {
 			isbn: "",
 			rating: "",
 			year: "",
-			pages: ""
+			pages: "",
 		});
 
 		// redirect to book list after added book
 		this.props.history.push("/");
 	};
 
-	toggleMoreInfo = e => {
+	toggleMoreInfo = (e) => {
 		e.preventDefault();
 		this.setState({ moreInfo: !this.state.moreInfo });
 	};
@@ -74,7 +81,7 @@ class AddBook extends Component {
 		const { title, author, isbn, errors, year, pages } = this.state;
 		return (
 			<Consumer>
-				{value => {
+				{(value) => {
 					const { dispatch } = value;
 					return (
 						<div>
