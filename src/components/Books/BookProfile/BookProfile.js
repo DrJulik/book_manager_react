@@ -8,14 +8,15 @@ class BookProfile extends Component {
 		isbn: "",
 		rating: "",
 		year: "",
-		pages: ""
+		pages: "",
 	};
 
 	async componentDidMount() {
 		const { id } = this.props.match.params;
-		const res = await axios.get(`http://localhost:3000/books/${id}`);
+		// const res = await axios.get(`http://localhost:3000/books/${id}`);
 
-		const book = res.data;
+		// const book = res.data;
+		let book = JSON.parse(localStorage.getItem(id));
 
 		this.setState({
 			title: book.title,
@@ -23,7 +24,7 @@ class BookProfile extends Component {
 			isbn: book.isbn,
 			rating: book.rating,
 			year: book.year,
-			pages: book.pages
+			pages: book.pages,
 		});
 	}
 

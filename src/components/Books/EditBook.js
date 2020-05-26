@@ -101,7 +101,9 @@ class EditBook extends Component {
 											type="text"
 											onChange={this.onChange}
 										/>
-										<label htmlFor="title">Title</label>
+										<label className="active" htmlFor="title">
+											Title
+										</label>
 										{errors.title ? (
 											<p style={{ color: "red" }}>{errors.title}</p>
 										) : null}
@@ -114,7 +116,9 @@ class EditBook extends Component {
 											type="text"
 											onChange={this.onChange}
 										/>
-										<label htmlFor="author">Author</label>
+										<label className="active" htmlFor="author">
+											Author
+										</label>
 										{errors.author ? (
 											<p style={{ color: "red" }}>{errors.author}</p>
 										) : null}
@@ -127,7 +131,9 @@ class EditBook extends Component {
 											type="text"
 											onChange={this.onChange}
 										/>
-										<label htmlFor="isbn">ISBN</label>
+										<label className="active" htmlFor="isbn">
+											ISBN
+										</label>
 										{errors.isbn ? (
 											<p style={{ color: "red" }}>{errors.isbn}</p>
 										) : null}
